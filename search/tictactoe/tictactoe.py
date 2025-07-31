@@ -17,10 +17,19 @@ def player(board):
     return X if count_x == count_o else O
 
 def actions(board):
-    return [(i, j) for i, row in enumerate(board)
+    moves = set() 
+    nmoves = [(i, j) for i, row in enumerate(board)
                    for j, cell in enumerate(row) if cell == EMPTY]
 
+    for nmove in nmoves:
+        moves.add(nmove)
+
+    return moves
+
 def result(board, action):
+    if action[0] not in [0,1,2] or action[1] not in [0,1,2]:
+        raise ValueError("Invalid Action")
+
     nboard = copy.deepcopy(board)
     i, j = action
     if nboard[i][j] is not EMPTY:
